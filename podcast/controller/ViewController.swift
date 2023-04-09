@@ -31,7 +31,7 @@ class ViewController: UIViewController {
     
     func completelogin(){
         DispatchQueue.main.async {
-            let controller = self.storyboard?.instantiateViewController(withIdentifier: "tabbarstoryboard") as! UITabBarController
+            let controller = self.storyboard?.instantiateViewController(withIdentifier: "navigationcontroller") as! UINavigationController
             self.present(controller, animated: true, completion: nil)
         }
     }

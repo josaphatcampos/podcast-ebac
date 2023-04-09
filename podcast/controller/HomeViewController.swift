@@ -73,7 +73,7 @@ class HomeViewController: UIViewController {
             controller.podcastId = id
             
             let navController = UINavigationController(rootViewController: controller)
-            navController.modalPresentationStyle = .fullScreen
+//            navController.modalPresentationStyle = .fullScreen
             
             self.present(navController, animated: true, completion: nil)
         }
