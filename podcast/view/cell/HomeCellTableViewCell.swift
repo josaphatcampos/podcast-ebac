@@ -9,6 +9,10 @@ import UIKit
 
 class HomeCellTableViewCell: UITableViewCell {
     
+    var like = false
+    var id:String = ""
+    var favoriteDelegate:FavoriteDelegate?
+    
     @IBOutlet weak var thumb: UIImageView!
     
     @IBOutlet weak var title: UILabel!
@@ -16,6 +20,20 @@ class HomeCellTableViewCell: UITableViewCell {
     @IBOutlet weak var download: UIButton!
     
     @IBAction func downloadAction(_ sender: Any) {
+        if like{
+            if let image = UIImage(systemName: "suit.heart"){
+                download.setImage(image, for: .normal)
+                like = !like
+                favoriteDelegate?.desfavoritarPodCast(self.id)
+            }
+        }else{
+            if let image = UIImage(systemName: "suit.heart.fill"){
+                download.setImage(image, for: .normal)
+                like = !like
+                
+                favoriteDelegate?.favoritarPodCast(self.id)
+            }
+        }
     }
     
     override func awakeFromNib() {
@@ -35,13 +53,13 @@ class HomeCellTableViewCell: UITableViewCell {
         title.text = podcast.title
         subtitle.text = podcast.publisher
         
-        guard let imageUrl = URL(string: podcast.thumbnail) else{return}
+        guard let imageUrl = URL(string: podcast.thumbnail) else{
+            self.thumb.image = UIImage(named: "imagePlaceholder")
+            return
+        }
         
         URLSession.shared.dataTask(with: imageUrl){data, _, error in
-            guard let data = data, error == nil else {
-                return
-            }
-            
+            guard let data = data, error == nil else {return}
             DispatchQueue.main.async {
                 self.thumb.image = UIImage(data: data)
             }

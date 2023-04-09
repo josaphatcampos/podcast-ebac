@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol FavoriteDelegate{
+    func favoritarPodCast(_ id:String)
+    func desfavoritarPodCast(_ id:String)
+}
+
 class HomeViewController: UIViewController {
     
     var service:PodCastService = PodCastService()
@@ -19,6 +24,9 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var hometableview: UITableView!
     
     @IBOutlet weak var contentView: UIView!
+    
+    @IBOutlet weak var tableviewHeight: NSLayoutConstraint!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,21 +46,36 @@ class HomeViewController: UIViewController {
     
     func callAPI(){
         service.getBestPod { [weak self] result in
-            guard let selg = self else{return}
+            guard let self = self else{return}
             
             switch result{
             case .success(let response):
                 for item in response {
-                    self!.pod.append(item)
+                    self.pod.append(item)
                 }
                 
+                self.tableviewHeight.constant = CGFloat(80 * (self.pod.count))
+                
                 DispatchQueue.main.async {
-                    self?.hometableview.reloadData()
+                    self.hometableview.reloadData()
                 }
                 
             case .failure(let error):
                 print("error \(error.localizedDescription)")
             }
+        }
+    }
+    
+    func callPodcastEpisodes(_ id:String){
+        //epsodesTableView
+        DispatchQueue.main.async {
+            let controller = self.storyboard?.instantiateViewController(withIdentifier: "epsodesTableView") as! EpisodesTableViewController
+            controller.podcastId = id
+            
+            let navController = UINavigationController(rootViewController: controller)
+            navController.modalPresentationStyle = .fullScreen
+            
+            self.present(navController, animated: true, completion: nil)
         }
     }
 }
@@ -69,20 +92,31 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: "homecell", for: indexPath) as! HomeCellTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "homecell", for: indexPath) as! HomeCellTableViewCell
+        let podcast = pod[indexPath.row]
         
-        cell.prepare(with:  pod[indexPath.row])
+        cell.favoriteDelegate = self
+        cell.id = podcast.id
+        
+        cell.prepare(with: podcast)
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("celula \(indexPath)")
+        callPodcastEpisodes(pod[indexPath.row].id)
+    }    
+}
+
+extension HomeViewController: FavoriteDelegate{
+    func desfavoritarPodCast(_ id: String) {
+        print("Voce Desavoritou o \(id)")
     }
     
+    func favoritarPodCast(_ id: String) {
+        print("Voce Favoritou o \(id)")
+    }
     
-    
-    
-
     
 }
