@@ -50,28 +50,26 @@ class HomeViewController: UIViewController {
     }
     
     fileprivate func deleteData(){
-        print("ENTOrU DELETE")
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = PodCasts.fetchRequest()
         
         let deleteRequest =  NSBatchDeleteRequest(fetchRequest: fetchRequest)
         deleteRequest.resultType = .resultTypeObjectIDs
-        print("ENTOrU DELETE antes do do")
         do{
-            print("ENTOrU DELETE no do")
             let context = dataController.viewContext
             let result = try context.execute(deleteRequest)
-            print("ENTOrU DELETE antes guard")
+            
             guard let deleteResult = result as? NSBatchDeleteResult,
                   let ids = deleteResult.result as? [NSManagedObjectID] else{return}
-            print("ENTOrU DELETE depois guard")
+            
             let changes = [NSDeletedObjectsKey: ids]
-            print("ENTOrU DELETE change \(changes.first)")
-            NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [context])
-            print("ENTOrU DELETE final do")
+            
+            context.perform {
+                NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [context])
+            }
+                
         }catch{
             print("Delete Error \(error as Any)")
         }
-        print("ENTOrU DELETEfinal tudo")
         DispatchQueue.main.async {
             self.hometableview.reloadData()
         }
@@ -107,15 +105,19 @@ class HomeViewController: UIViewController {
         
     }
     
+    func saveData(url:String) -> Data?{
+        guard let imageURL = URL(string: url) else {return nil}
+        guard let imageData = try? Data(contentsOf: imageURL) else {return nil}
+        
+        return imageData
+    }
+    
     func callAPI(){
-        print("chamou")
         service.getBestPod { [weak self] result in
             guard let self = self else{return}
             switch result{
             case .success(let response):
-                print("antes do delete")
                 deleteData()
-                print("depois do delete")
                 for item in response {
                     let podcast = PodCasts(context: self.dataController.viewContext)
                     
@@ -127,21 +129,25 @@ class HomeViewController: UIViewController {
                     podcast.publisher       = item.publisher
                     podcast.totalEpisodes   = Int32(item.totalEpisodes)
                     
-                    guard let imageURL = URL(string: item.image)else{return}
-                    guard let imageData = try? Data(contentsOf: imageURL) else {return}
+                   
+                    let imageData = saveData(url: item.image)
                     
                     podcast.imageData = imageData
                     
                     self.pod.append(podcast)
                     
+                    
+                    
                     try? self.dataController.viewContext.save()
                 }
+               
             case .failure(let error):
                 print("error \(error.localizedDescription)")
             }
             
             DispatchQueue.main.async {
-                self.tableviewHeight.constant = CGFloat(80 * (self.pod.count))
+                
+                
                 self.hometableview.reloadData()
             }
         }
@@ -169,7 +175,12 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return fetchedResultController?.sections?[section].numberOfObjects ?? 0//pod.count
+        
+        let count = fetchedResultController?.sections?[section].numberOfObjects ?? 0
+        
+        self.tableviewHeight.constant = CGFloat(80 * (count))
+        
+        return count //pod.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
