@@ -49,11 +49,13 @@ class HomeCellTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func prepare(with podcast: Podcast){
+    func prepare(with podcast: PodCasts){
         title.text = podcast.title
         subtitle.text = podcast.publisher
         
-        guard let imageUrl = URL(string: podcast.thumbnail) else{
+        like = podcast.isFavorite
+        
+        guard let imageUrl = URL(string: podcast.image!) else{
             self.thumb.image = UIImage(named: "imagePlaceholder")
             return
         }

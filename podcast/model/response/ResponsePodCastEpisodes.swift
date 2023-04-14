@@ -60,7 +60,7 @@ struct PodCastEpisodesResponse: Codable {
 
 // MARK: - Episode
 struct Episode: Codable {
-    let pubDateMS: Int
+    let pubDateMS: Int64
     let title: String
     let image: String
     let audioLengthSEC: Int

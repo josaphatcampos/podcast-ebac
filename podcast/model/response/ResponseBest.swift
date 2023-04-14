@@ -12,7 +12,7 @@ struct BestPodCastResponse: Codable {
     let id: Int
     let name: String
     let parentID: JSONNull?
-    let podcasts: [Podcast]
+    let podcasts: [UrlPodcast]
     let total: Int
     let hasNext, hasPrevious: Bool
     let pageNumber, previousPageNumber, nextPageNumber: Int
@@ -32,7 +32,7 @@ struct BestPodCastResponse: Codable {
 }
 
 // MARK: - Podcast
-struct Podcast: Codable {
+struct UrlPodcast: Codable {
     let id, title, publisher: String
     let image, thumbnail: String
     let listennotesURL: String
@@ -45,8 +45,8 @@ struct Podcast: Codable {
     let latestPubDateMS: Int
     let latestEpisodeID: String
     let earliestPubDateMS: Int
-    let language: Language
-    let country: Country
+    let language: String
+    let country: String
     let website: String?
     let extra: Extra
     let isClaimed: Bool

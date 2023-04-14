@@ -9,6 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    var dataController: DataController!
     
     @IBOutlet weak var loginbuttonoutlet: UIButton!
     
@@ -32,6 +33,11 @@ class ViewController: UIViewController {
     func completelogin(){
         DispatchQueue.main.async {
             let controller = self.storyboard?.instantiateViewController(withIdentifier: "navigationcontroller") as! UINavigationController
+            
+            let rootViewController = controller.topViewController as! UITabBarController
+            let homeViewController = rootViewController.viewControllers?.first as! HomeViewController
+            homeViewController.dataController = self.dataController
+            
             self.present(controller, animated: true, completion: nil)
         }
     }

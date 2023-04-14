@@ -48,12 +48,14 @@ class PodCastService{
         }
     }
     
-    func getBestPod(completion: @escaping (Result<[Podcast], PodcastApiError>)->Void){
+    func getBestPod(completion: @escaping (Result<[UrlPodcast], PodcastApiError>)->Void){
         var parameters:[String:String] = [:]
         parameters["region"] = "br"
         parameters["publisher_region"] = "br"
         parameters["safe_mode"] = "0"
         parameters["sort"] = "listen_score"
+        
+        
         
         client.fetchBestPodcasts(parameters: parameters){ response in
             
@@ -69,11 +71,15 @@ class PodCastService{
                 completion(.failure(error))
                 
             }else{
+                
                 if let json = response.toJson(){
                     
                     let jsonString: String =  (json as AnyObject).description
                     let jsonData = Data(jsonString.utf8)
                     do{
+                        
+                       
+                        
                         let decocder = JSONDecoder()
                         let bestPodCastResponse = try decocder.decode(BestPodCastResponse.self, from: jsonData)
                         
@@ -114,7 +120,6 @@ class PodCastService{
                     
                     let jsonString: String =  (json as AnyObject).description
                     let jsonData = Data(jsonString.utf8)
-                    print(json)
                     do{
                         let decocder = JSONDecoder()
                         let epsodesresponse = try decocder.decode(PodCastEpisodesResponse.self, from: jsonData)

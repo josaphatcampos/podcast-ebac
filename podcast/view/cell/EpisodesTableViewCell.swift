@@ -32,14 +32,17 @@ class EpisodesTableViewCell: UITableViewCell {
     }
     
     func prepare(_ episode:Episode){
+        let minhadata = Date(milliseconds:episode.pubDateMS)
+        let dateformate = DateFormatter()
+        dateformate.locale = Locale(identifier: "pt_BR")
+        dateformate.dateFormat = "dd-MMM-yyyy HH:mm:ss"
+        dateformate.dateStyle = .long
         
-        let dateformatter = DateFormatter()
-        dateformatter.dateFormat = "dd/MM/yyyy"
         
-        let datapubli = dateformatter.date(from: String(describing: Date(timeIntervalSince1970: TimeInterval(episode.pubDateMS))))
+        
         
         title.text = episode.title
-        subtitle.text = "Publicado em: \(String(describing: datapubli))"
+        subtitle.text = "Publicado em: \(String(describing: dateformate.string(from: minhadata)))"
     }
 
 }

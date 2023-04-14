@@ -23,6 +23,9 @@
 		4DCA4EE129E236D500FB2EC3 /* EpisodesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCA4EE029E236D500FB2EC3 /* EpisodesTableViewController.swift */; };
 		4DD0D3E229E263C200177E52 /* ResponsePodCastEpisodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD0D3E129E263C200177E52 /* ResponsePodCastEpisodes.swift */; };
 		4DD0D3E429E28A7700177E52 /* EpisodesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD0D3E329E28A7700177E52 /* EpisodesTableViewCell.swift */; };
+		4DD0D3E729E37E6100177E52 /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD0D3E629E37E6100177E52 /* extensions.swift */; };
+		4DE65ACB29E7BAF9001F3467 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE65ACA29E7BAF9001F3467 /* PlayerViewController.swift */; };
+		4DE65ACD29E900CA001F3467 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE65ACC29E900C9001F3467 /* DataController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +46,9 @@
 		4DCA4EE029E236D500FB2EC3 /* EpisodesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodesTableViewController.swift; sourceTree = "<group>"; };
 		4DD0D3E129E263C200177E52 /* ResponsePodCastEpisodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponsePodCastEpisodes.swift; sourceTree = "<group>"; };
 		4DD0D3E329E28A7700177E52 /* EpisodesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodesTableViewCell.swift; sourceTree = "<group>"; };
+		4DD0D3E629E37E6100177E52 /* extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
+		4DE65ACA29E7BAF9001F3467 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
+		4DE65ACC29E900C9001F3467 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +82,7 @@
 		4DBDAD2929E0EEE000A62F1D /* podcast */ = {
 			isa = PBXGroup;
 			children = (
+				4DD0D3E529E37E4C00177E52 /* utils */,
 				4DBDAD4529E0EF4C00A62F1D /* service */,
 				4DBDAD4429E0EF2400A62F1D /* controller */,
 				4DBDAD4329E0EF0A00A62F1D /* model */,
@@ -111,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				4DCA4EDB29E135C400FB2EC3 /* response */,
+				4DE65ACC29E900C9001F3467 /* DataController.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -121,6 +129,7 @@
 				4DBDAD2E29E0EEE000A62F1D /* ViewController.swift */,
 				4DCA4ED629E1180C00FB2EC3 /* HomeViewController.swift */,
 				4DCA4EE029E236D500FB2EC3 /* EpisodesTableViewController.swift */,
+				4DE65ACA29E7BAF9001F3467 /* PlayerViewController.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -150,6 +159,14 @@
 				4DD0D3E129E263C200177E52 /* ResponsePodCastEpisodes.swift */,
 			);
 			path = response;
+			sourceTree = "<group>";
+		};
+		4DD0D3E529E37E4C00177E52 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				4DD0D3E629E37E6100177E52 /* extensions.swift */,
+			);
+			path = utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,11 +249,14 @@
 				4DCA4EDF29E143DD00FB2EC3 /* NetworkManager.swift in Sources */,
 				4DD0D3E429E28A7700177E52 /* EpisodesTableViewCell.swift in Sources */,
 				4DBDAD2F29E0EEE000A62F1D /* ViewController.swift in Sources */,
+				4DE65ACB29E7BAF9001F3467 /* PlayerViewController.swift in Sources */,
 				4DCA4EDA29E12EA600FB2EC3 /* HomeCellTableViewCell.swift in Sources */,
 				4DBDAD2B29E0EEE000A62F1D /* AppDelegate.swift in Sources */,
 				4DBDAD3529E0EEE000A62F1D /* podcast.xcdatamodeld in Sources */,
 				4DCA4ED729E1180C00FB2EC3 /* HomeViewController.swift in Sources */,
+				4DD0D3E729E37E6100177E52 /* extensions.swift in Sources */,
 				4DBDAD2D29E0EEE000A62F1D /* SceneDelegate.swift in Sources */,
+				4DE65ACD29E900CA001F3467 /* DataController.swift in Sources */,
 				4DCA4EE129E236D500FB2EC3 /* EpisodesTableViewController.swift in Sources */,
 				4DCA4EDD29E135E400FB2EC3 /* ResponseBest.swift in Sources */,
 				4DD0D3E229E263C200177E52 /* ResponsePodCastEpisodes.swift in Sources */,
