@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D53F42429EA5305001A962F /* DownloadsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D53F42329EA5305001A962F /* DownloadsTableViewController.swift */; };
+		4D53F42629EA6319001A962F /* DownloadTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D53F42529EA6319001A962F /* DownloadTableViewCell.swift */; };
+		4DBD513829EDE72300ACC4C4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4DBD513729EDE72200ACC4C4 /* GoogleService-Info.plist */; };
+		4DBD513B29EDE7BE00ACC4C4 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4DBD513A29EDE7BE00ACC4C4 /* FirebaseAuth */; };
 		4DBDAD2B29E0EEE000A62F1D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBDAD2A29E0EEE000A62F1D /* AppDelegate.swift */; };
 		4DBDAD2D29E0EEE000A62F1D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBDAD2C29E0EEE000A62F1D /* SceneDelegate.swift */; };
 		4DBDAD2F29E0EEE000A62F1D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBDAD2E29E0EEE000A62F1D /* ViewController.swift */; };
@@ -29,6 +33,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4D53F42329EA5305001A962F /* DownloadsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadsTableViewController.swift; sourceTree = "<group>"; };
+		4D53F42529EA6319001A962F /* DownloadTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadTableViewCell.swift; sourceTree = "<group>"; };
+		4DBD513729EDE72200ACC4C4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4DBDAD2729E0EEE000A62F1D /* podcast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = podcast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DBDAD2A29E0EEE000A62F1D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4DBDAD2C29E0EEE000A62F1D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -57,6 +64,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DCA4ED329E0F07B00FB2EC3 /* PodcastAPI in Frameworks */,
+				4DBD513B29EDE7BE00ACC4C4 /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +98,7 @@
 				4DBDAD4129E0EEEC00A62F1D /* delegates */,
 				4DBDAD3629E0EEE200A62F1D /* Assets.xcassets */,
 				4DBDAD3B29E0EEE200A62F1D /* Info.plist */,
+				4DBD513729EDE72200ACC4C4 /* GoogleService-Info.plist */,
 				4DBDAD3329E0EEE000A62F1D /* podcast.xcdatamodeld */,
 			);
 			path = podcast;
@@ -129,6 +138,7 @@
 				4DBDAD2E29E0EEE000A62F1D /* ViewController.swift */,
 				4DCA4ED629E1180C00FB2EC3 /* HomeViewController.swift */,
 				4DCA4EE029E236D500FB2EC3 /* EpisodesTableViewController.swift */,
+				4D53F42329EA5305001A962F /* DownloadsTableViewController.swift */,
 				4DE65ACA29E7BAF9001F3467 /* PlayerViewController.swift */,
 			);
 			path = controller;
@@ -148,6 +158,7 @@
 			children = (
 				4DCA4ED929E12EA600FB2EC3 /* HomeCellTableViewCell.swift */,
 				4DD0D3E329E28A7700177E52 /* EpisodesTableViewCell.swift */,
+				4D53F42529EA6319001A962F /* DownloadTableViewCell.swift */,
 			);
 			path = cell;
 			sourceTree = "<group>";
@@ -187,6 +198,7 @@
 			name = podcast;
 			packageProductDependencies = (
 				4DCA4ED229E0F07B00FB2EC3 /* PodcastAPI */,
+				4DBD513A29EDE7BE00ACC4C4 /* FirebaseAuth */,
 			);
 			productName = podcast;
 			productReference = 4DBDAD2729E0EEE000A62F1D /* podcast.app */;
@@ -218,6 +230,7 @@
 			mainGroup = 4DBDAD1E29E0EEE000A62F1D;
 			packageReferences = (
 				4DCA4ED129E0F07B00FB2EC3 /* XCRemoteSwiftPackageReference "podcast-api-swift" */,
+				4DBD513929EDE7BE00ACC4C4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 4DBDAD2829E0EEE000A62F1D /* Products */;
 			projectDirPath = "";
@@ -234,6 +247,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DBDAD3A29E0EEE200A62F1D /* LaunchScreen.storyboard in Resources */,
+				4DBD513829EDE72300ACC4C4 /* GoogleService-Info.plist in Resources */,
 				4DBDAD3729E0EEE200A62F1D /* Assets.xcassets in Resources */,
 				4DBDAD3229E0EEE000A62F1D /* Main.storyboard in Resources */,
 			);
@@ -256,7 +270,9 @@
 				4DCA4ED729E1180C00FB2EC3 /* HomeViewController.swift in Sources */,
 				4DD0D3E729E37E6100177E52 /* extensions.swift in Sources */,
 				4DBDAD2D29E0EEE000A62F1D /* SceneDelegate.swift in Sources */,
+				4D53F42629EA6319001A962F /* DownloadTableViewCell.swift in Sources */,
 				4DE65ACD29E900CA001F3467 /* DataController.swift in Sources */,
+				4D53F42429EA5305001A962F /* DownloadsTableViewController.swift in Sources */,
 				4DCA4EE129E236D500FB2EC3 /* EpisodesTableViewController.swift in Sources */,
 				4DCA4EDD29E135E400FB2EC3 /* ResponseBest.swift in Sources */,
 				4DD0D3E229E263C200177E52 /* ResponsePodCastEpisodes.swift in Sources */,
@@ -410,6 +426,8 @@
 				DEVELOPMENT_TEAM = SPWMMSKK74;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = podcast/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Podcast Ebac";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -438,6 +456,8 @@
 				DEVELOPMENT_TEAM = SPWMMSKK74;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = podcast/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Podcast Ebac";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -480,6 +500,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		4DBD513929EDE7BE00ACC4C4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.0;
+			};
+		};
 		4DCA4ED129E0F07B00FB2EC3 /* XCRemoteSwiftPackageReference "podcast-api-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ListenNotes/podcast-api-swift.git";
@@ -491,6 +519,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4DBD513A29EDE7BE00ACC4C4 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4DBD513929EDE7BE00ACC4C4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
 		4DCA4ED229E0F07B00FB2EC3 /* PodcastAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4DCA4ED129E0F07B00FB2EC3 /* XCRemoteSwiftPackageReference "podcast-api-swift" */;

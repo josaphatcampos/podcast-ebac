@@ -11,7 +11,10 @@ import AVKit
 
 class PlayerViewController: UIViewController {
     
-    var audiourl = "https://tuningmania.com.br/autosom/mp3/0-intro%20to%20test%20section.MP3"
+    var episode:Episodes!
+    var podcast:PodCasts!
+    
+//    var audiourl = "https://tuningmania.com.br/autosom/mp3/0-intro%20to%20test%20section.MP3"
 //    var audiourl = "https://www.listennotes.com/e/p/1a4c6fd9edbe4c629c16d7073ac1e1f6/"
     var player:AVAudioPlayer?
     
@@ -67,115 +70,59 @@ class PlayerViewController: UIViewController {
         playaudio()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        avplayer = nil
+        
+        //TODO: Remove File
+    }
+    
     func configlayout(){
         // image
-        guard let imageUrl = URL(string: "https://production.listennotes.com/podcasts/flow-podcast/guto-zacarias-kim-kataguiri-jfB7Irahzet-G7pIBciktqn.300x300.jpg") else{
+        
+        if let data = episode.imageData{
+            self.coverimage.image = UIImage(data: data)
+        }else if let imageUrl =  URL(string: episode.image!){
+            URLSession.shared.dataTask(with: imageUrl){ data, _, error in
+                guard let data = data, error == nil else {print("return session")
+                    return}
+                DispatchQueue.main.async {
+                    self.coverimage.image = UIImage(data: data)
+                }
+            }.resume()
+        }else{
             self.coverimage.image = UIImage(named: "imagePlaceholder")
-            return
         }
         
         
-        URLSession.shared.dataTask(with: imageUrl){ data, _, error in
-            guard let data = data, error == nil else {print("return session")
-                return}
-            DispatchQueue.main.async {
-                self.coverimage.image = UIImage(data: data)
-            }
-        }.resume()
         
-        titleLabel.text = "GUTO ZACARIAS + KIM KATAGUIRI - Flow #197"
-        publisherLabel.text = "Flow Podcast"
+        titleLabel.text = episode.title
+        publisherLabel.text = podcast.title
     }
-    
-//    func downloadFIleFromURL(url:URL) {
-//        URLSession.shared.downloadTask(with: url){ data, _, error in
-//            guard let data = data, error == nil else{return}
-//            print("baixou o trem aqui: \(data)")
-//            self.playurl(url: data)
-//
-//        }.resume()
-//
-//    }
-//
-//    func playurl(url:URL) {
-//
-//        do{
-//            print("do")
-//
-//            DispatchQueue.main.async {
-//                let playerViewController = AVPlayerViewController()
-//                self.present(playerViewController, animated: true, completion: nil)
-//
-//                let player = AVPlayer(url: url)
-//                playerViewController.player = player
-//                player.play()
-//            }
-//
-////            self.player = try AVAudioPlayer(contentsOf: url)
-////            guard let player = player else{return}
-////            player.prepareToPlay()
-////            player.volume = 1.0
-////            player.play()
-////            print("depois do play")
-//
-//
-//
-//
-////            try AVAudioSession.sharedInstance().setMode(.default)
-////            try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
-////            print("antes audio url")
-////            guard let audiourl =  Bundle.main.path(forResource: String(describing: url), ofType: "mp3") else{
-////                return
-////            }
-////            print("depois audio url")
-////            player = try AVAudioPlayer(contentsOf: URL(string: audiourl)!)
-////            print("depois do try")
-////            guard let player = player else {
-////                return
-////            }
-////            print("antes do play")
-////            player.prepareToPlay()
-////            player.volume = 1.0
-////            player.play()
-////            print("depois do play")
-////            playButton.setImage(UIImage(named: "pause.fill"), for: .normal)
-//
-//
-//
-//
-//            //https://stackoverflow.com/questions/34563329/how-to-play-mp3-audio-from-url-in-ios-swift
-////            let playerItem = AVPlayerItem.init(url: URL.init(string: audiourl)!)
-////            let p = AVPlayer.init(playerItem: playerItem)
-////
-////            tempSlider.minimumValue = 0
-////            let duration:CMTime = try  await playerItem.asset.load(.duration)
-////            let seconds: Float64 = CMTimeGetSeconds(duration)
-//////            print(localizedString(fromTimeInterval: seconds))
-////            print(String(describing: duration))
-////
-////            let currentDuration : CMTime = playerItem.currentTime()
-////            let currentSeconds : Float64 = CMTimeGetSeconds(currentDuration)
-////            print(String(describing: currentSeconds))
-////
-////            tempSlider.maximumValue = Float(seconds)
-////            tempSlider.isContinuous = true
-////
-////
-////            print("antes do play")
-////            p.play()
-////            print("depois do plauy")
-//
-//
-//
-//        }catch{
-//            print("deu ruim")
-//        }
-//    }
-    
-    func playaudio(){
-//        let soundUrl =  Bundle.main.url(forResource: audiourl, withExtension: "mp3")!
         
-        let soundUrl = URL(string: audiourl)!
+    func playaudio(){
+        guard let sound = episode.audio else{
+            self.dismiss(animated: true)
+            return
+        }
+        var soundUrl = URL(string: sound)!
+        
+        if episode.audioData != nil{
+            var tempFIleURL: URL{
+                return FileManager.default.temporaryDirectory.appendingPathComponent("\(episode.title!).mp3")
+            }
+            if !FileManager.default.fileExists(atPath: tempFIleURL.path){
+                do{
+                    print("try")
+                    try episode.audioData?.write(to: tempFIleURL)
+                }catch{
+                    print("Erro \(error.localizedDescription)")
+                    fatalError()
+                }
+                
+            }
+            soundUrl = tempFIleURL
+        }
+        
         playerItem = AVPlayerItem(url: soundUrl)
         avplayer =  AVPlayer(playerItem: playerItem)
         avplayer.volume = 1.0

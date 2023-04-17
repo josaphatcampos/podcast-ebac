@@ -8,6 +8,10 @@
 import UIKit
 
 class EpisodesTableViewCell: UITableViewCell {
+    
+    var downloadDelegate:DownloadEpisodeFileDelegate?
+    var index:IndexPath?
+    var existDownload = false
 
     @IBOutlet weak var title: UILabel!
     
@@ -16,6 +20,12 @@ class EpisodesTableViewCell: UITableViewCell {
     @IBOutlet weak var playbtn: UIButton!
     
     @IBAction func playbtnAction(_ sender: Any) {
+        print("CLICOU \(existDownload) at: \(String(describing: index?.row))")
+        if existDownload{
+            downloadDelegate?.deleteDownloadEpisode(index!)
+        }else{
+            downloadDelegate?.downloadEpisode(index!)
+        }
     }
     
     
@@ -31,15 +41,20 @@ class EpisodesTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func prepare(_ episode:Episode){
-        let minhadata = Date(milliseconds:episode.pubDateMS)
+    func prepare(_ episode:Episodes, indexPath:IndexPath){
+        let minhadata = Date(milliseconds:episode.pubDatems)
         let dateformate = DateFormatter()
         dateformate.locale = Locale(identifier: "pt_BR")
         dateformate.dateFormat = "dd-MMM-yyyy HH:mm:ss"
         dateformate.dateStyle = .long
         
+        self.index = indexPath
         
+        existDownload = episode.audioData != nil
         
+        if existDownload {
+            playbtn.imageView?.image = UIImage(systemName: "trash.fill")
+        }
         
         title.text = episode.title
         subtitle.text = "Publicado em: \(String(describing: dateformate.string(from: minhadata)))"

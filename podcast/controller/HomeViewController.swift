@@ -36,9 +36,11 @@ class HomeViewController: UIViewController {
         let fetchRequest: NSFetchRequest<PodCasts> = PodCasts.fetchRequest()
         let sortDescriptor =  NSSortDescriptor(key: "title", ascending: true)
         
+        let context = dataController.viewContext
+        
         fetchRequest.sortDescriptors = [sortDescriptor]
         
-        fetchedResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
         fetchedResultController?.delegate = self
         
         do{
@@ -78,11 +80,12 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         hometableview.dataSource = self
         hometableview.delegate = self
         
-        
+        let downloadVc = self.tabBarController?.viewControllers?[1] as! DownloadsTableViewController
+        downloadVc.dataController = self.dataController
         
         viewConfig()
         callAPI()
@@ -120,7 +123,7 @@ class HomeViewController: UIViewController {
                 deleteData()
                 for item in response {
                     let podcast = PodCasts(context: self.dataController.viewContext)
-                    
+
                     podcast.id              = item.id
                     podcast.title           = item.title
                     podcast.country         = item.country
@@ -128,41 +131,39 @@ class HomeViewController: UIViewController {
                     podcast.language        = item.language
                     podcast.publisher       = item.publisher
                     podcast.totalEpisodes   = Int32(item.totalEpisodes)
-                    
-                   
+
+
                     let imageData = saveData(url: item.image)
-                    
                     podcast.imageData = imageData
-                    
+
                     self.pod.append(podcast)
-                    
-                    
-                    
+
                     try? self.dataController.viewContext.save()
                 }
-               
+
             case .failure(let error):
                 print("error \(error.localizedDescription)")
             }
             
             DispatchQueue.main.async {
-                
-                
                 self.hometableview.reloadData()
             }
         }
     }
     
-    func callPodcastEpisodes(_ id:String){
+    func callPodcastEpisodes(_ pod:PodCasts){
         //epsodesTableView
         DispatchQueue.main.async {
             let controller = self.storyboard?.instantiateViewController(withIdentifier: "epsodesTableView") as! EpisodesTableViewController
-            controller.podcastId = id
             
-            let navController = UINavigationController(rootViewController: controller)
+            controller.dataController = self.dataController
+            controller.podcast = pod
+            
+//            let navController = UINavigationController(rootViewController: controller)
 //            navController.modalPresentationStyle = .fullScreen
             
-            self.present(navController, animated: true, completion: nil)
+//            self.present(navController, animated: true, completion: nil)
+            self.navigationController?.pushViewController(controller, animated: true)
         }
     }
 }
@@ -200,7 +201,8 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("celula \(indexPath)")
-        callPodcastEpisodes(pod[indexPath.row].id!)
+        let podcast = fetchedResultController!.object(at: indexPath)
+        callPodcastEpisodes(podcast)
     }    
 }
 

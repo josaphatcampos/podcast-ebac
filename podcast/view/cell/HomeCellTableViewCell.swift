@@ -55,18 +55,25 @@ class HomeCellTableViewCell: UITableViewCell {
         
         like = podcast.isFavorite
         
-        guard let imageUrl = URL(string: podcast.image!) else{
-            self.thumb.image = UIImage(named: "imagePlaceholder")
-            return
-        }
         
-        URLSession.shared.dataTask(with: imageUrl){data, _, error in
-            guard let data = data, error == nil else {return}
-            DispatchQueue.main.async {
-                self.thumb.image = UIImage(data: data)
+        if let data = podcast.imageData{
+            self.thumb.image = UIImage(data: data)
+        }else{
+            guard let imageUrl = URL(string: podcast.image!) else{
+                self.thumb.image = UIImage(named: "imagePlaceholder")
+                return
             }
             
-        }.resume()
+            URLSession.shared.dataTask(with: imageUrl){data, _, error in
+                guard let data = data, error == nil else {return}
+                DispatchQueue.main.async {
+                    self.thumb.image = UIImage(data: data)
+                }
+                
+            }.resume()
+        }
+        
+        
         
     }
 
