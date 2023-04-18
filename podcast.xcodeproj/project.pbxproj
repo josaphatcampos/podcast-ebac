@@ -11,6 +11,7 @@
 		4D53F42629EA6319001A962F /* DownloadTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D53F42529EA6319001A962F /* DownloadTableViewCell.swift */; };
 		4DBD513829EDE72300ACC4C4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4DBD513729EDE72200ACC4C4 /* GoogleService-Info.plist */; };
 		4DBD513B29EDE7BE00ACC4C4 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4DBD513A29EDE7BE00ACC4C4 /* FirebaseAuth */; };
+		4DBD513D29EDEDD000ACC4C4 /* SingInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBD513C29EDEDD000ACC4C4 /* SingInViewController.swift */; };
 		4DBDAD2B29E0EEE000A62F1D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBDAD2A29E0EEE000A62F1D /* AppDelegate.swift */; };
 		4DBDAD2D29E0EEE000A62F1D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBDAD2C29E0EEE000A62F1D /* SceneDelegate.swift */; };
 		4DBDAD2F29E0EEE000A62F1D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBDAD2E29E0EEE000A62F1D /* ViewController.swift */; };
@@ -25,6 +26,8 @@
 		4DCA4EDD29E135E400FB2EC3 /* ResponseBest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCA4EDC29E135E400FB2EC3 /* ResponseBest.swift */; };
 		4DCA4EDF29E143DD00FB2EC3 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCA4EDE29E143DD00FB2EC3 /* NetworkManager.swift */; };
 		4DCA4EE129E236D500FB2EC3 /* EpisodesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCA4EE029E236D500FB2EC3 /* EpisodesTableViewController.swift */; };
+		4DCEFA6429EE0E4E0023D347 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCEFA6329EE0E4E0023D347 /* ProfileViewController.swift */; };
+		4DCEFA6929EE35A10023D347 /* NVActivityIndicatorView in Frameworks */ = {isa = PBXBuildFile; productRef = 4DCEFA6829EE35A10023D347 /* NVActivityIndicatorView */; };
 		4DD0D3E229E263C200177E52 /* ResponsePodCastEpisodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD0D3E129E263C200177E52 /* ResponsePodCastEpisodes.swift */; };
 		4DD0D3E429E28A7700177E52 /* EpisodesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD0D3E329E28A7700177E52 /* EpisodesTableViewCell.swift */; };
 		4DD0D3E729E37E6100177E52 /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD0D3E629E37E6100177E52 /* extensions.swift */; };
@@ -36,6 +39,7 @@
 		4D53F42329EA5305001A962F /* DownloadsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadsTableViewController.swift; sourceTree = "<group>"; };
 		4D53F42529EA6319001A962F /* DownloadTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadTableViewCell.swift; sourceTree = "<group>"; };
 		4DBD513729EDE72200ACC4C4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		4DBD513C29EDEDD000ACC4C4 /* SingInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingInViewController.swift; sourceTree = "<group>"; };
 		4DBDAD2729E0EEE000A62F1D /* podcast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = podcast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DBDAD2A29E0EEE000A62F1D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4DBDAD2C29E0EEE000A62F1D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -51,6 +55,7 @@
 		4DCA4EDC29E135E400FB2EC3 /* ResponseBest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseBest.swift; sourceTree = "<group>"; };
 		4DCA4EDE29E143DD00FB2EC3 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		4DCA4EE029E236D500FB2EC3 /* EpisodesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodesTableViewController.swift; sourceTree = "<group>"; };
+		4DCEFA6329EE0E4E0023D347 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		4DD0D3E129E263C200177E52 /* ResponsePodCastEpisodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponsePodCastEpisodes.swift; sourceTree = "<group>"; };
 		4DD0D3E329E28A7700177E52 /* EpisodesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodesTableViewCell.swift; sourceTree = "<group>"; };
 		4DD0D3E629E37E6100177E52 /* extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
@@ -65,6 +70,7 @@
 			files = (
 				4DCA4ED329E0F07B00FB2EC3 /* PodcastAPI in Frameworks */,
 				4DBD513B29EDE7BE00ACC4C4 /* FirebaseAuth in Frameworks */,
+				4DCEFA6929EE35A10023D347 /* NVActivityIndicatorView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,6 +146,8 @@
 				4DCA4EE029E236D500FB2EC3 /* EpisodesTableViewController.swift */,
 				4D53F42329EA5305001A962F /* DownloadsTableViewController.swift */,
 				4DE65ACA29E7BAF9001F3467 /* PlayerViewController.swift */,
+				4DBD513C29EDEDD000ACC4C4 /* SingInViewController.swift */,
+				4DCEFA6329EE0E4E0023D347 /* ProfileViewController.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -199,6 +207,7 @@
 			packageProductDependencies = (
 				4DCA4ED229E0F07B00FB2EC3 /* PodcastAPI */,
 				4DBD513A29EDE7BE00ACC4C4 /* FirebaseAuth */,
+				4DCEFA6829EE35A10023D347 /* NVActivityIndicatorView */,
 			);
 			productName = podcast;
 			productReference = 4DBDAD2729E0EEE000A62F1D /* podcast.app */;
@@ -231,6 +240,7 @@
 			packageReferences = (
 				4DCA4ED129E0F07B00FB2EC3 /* XCRemoteSwiftPackageReference "podcast-api-swift" */,
 				4DBD513929EDE7BE00ACC4C4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				4DCEFA6729EE35A00023D347 /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */,
 			);
 			productRefGroup = 4DBDAD2829E0EEE000A62F1D /* Products */;
 			projectDirPath = "";
@@ -260,6 +270,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DBD513D29EDEDD000ACC4C4 /* SingInViewController.swift in Sources */,
 				4DCA4EDF29E143DD00FB2EC3 /* NetworkManager.swift in Sources */,
 				4DD0D3E429E28A7700177E52 /* EpisodesTableViewCell.swift in Sources */,
 				4DBDAD2F29E0EEE000A62F1D /* ViewController.swift in Sources */,
@@ -268,6 +279,7 @@
 				4DBDAD2B29E0EEE000A62F1D /* AppDelegate.swift in Sources */,
 				4DBDAD3529E0EEE000A62F1D /* podcast.xcdatamodeld in Sources */,
 				4DCA4ED729E1180C00FB2EC3 /* HomeViewController.swift in Sources */,
+				4DCEFA6429EE0E4E0023D347 /* ProfileViewController.swift in Sources */,
 				4DD0D3E729E37E6100177E52 /* extensions.swift in Sources */,
 				4DBDAD2D29E0EEE000A62F1D /* SceneDelegate.swift in Sources */,
 				4D53F42629EA6319001A962F /* DownloadTableViewCell.swift in Sources */,
@@ -516,6 +528,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		4DCEFA6729EE35A00023D347 /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ninjaprox/NVActivityIndicatorView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -528,6 +548,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4DCA4ED129E0F07B00FB2EC3 /* XCRemoteSwiftPackageReference "podcast-api-swift" */;
 			productName = PodcastAPI;
+		};
+		4DCEFA6829EE35A10023D347 /* NVActivityIndicatorView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4DCEFA6729EE35A00023D347 /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */;
+			productName = NVActivityIndicatorView;
 		};
 /* End XCSwiftPackageProductDependency section */
 

@@ -14,13 +14,11 @@ class PlayerViewController: UIViewController {
     var episode:Episodes!
     var podcast:PodCasts!
     
-//    var audiourl = "https://tuningmania.com.br/autosom/mp3/0-intro%20to%20test%20section.MP3"
-//    var audiourl = "https://www.listennotes.com/e/p/1a4c6fd9edbe4c629c16d7073ac1e1f6/"
     var player:AVAudioPlayer?
     
     var playerItem: AVPlayerItem!
     var avplayer:AVPlayer!
-    
+        
     @IBOutlet weak var coverimage: UIImageView!
     
     @IBOutlet weak var titleLabel: UILabel!
@@ -100,6 +98,7 @@ class PlayerViewController: UIViewController {
     }
         
     func playaudio(){
+               
         guard let sound = episode.audio else{
             self.dismiss(animated: true)
             return
@@ -128,7 +127,7 @@ class PlayerViewController: UIViewController {
         avplayer.volume = 1.0
         avplayer.play()
         playButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
-        
+                
         avplayer.addPeriodicTimeObserver(forInterval: CMTimeMake(value: 1, timescale: 1), queue: nil) { (time) in
             let percent = time.seconds / self.playerItem.duration.seconds
             self.tempSlider.setValue(Float(percent), animated: true)

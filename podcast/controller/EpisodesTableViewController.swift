@@ -22,6 +22,7 @@ class EpisodesTableViewController: UITableViewController {
     var podcast:PodCasts!
     var ep = [Episodes]()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
                 
@@ -47,11 +48,6 @@ class EpisodesTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-
-//    override func numberOfSections(in tableView: UITableView) -> Int {
-//        return 1
-//    }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         let count = fetchedResultController?.sections?[section].numberOfObjects ?? 0
@@ -196,7 +192,6 @@ extension EpisodesTableViewController{
         }
         DispatchQueue.main.async { [weak self] in
             self?.tableView.reloadData()
-//            self?.tableView.endUpdates()
         }
         
     }
@@ -230,9 +225,13 @@ extension EpisodesTableViewController{
     
     func callPlayer(ep:Episodes){
         DispatchQueue.main.async {
+            
+            
             let controller = self.storyboard?.instantiateViewController(withIdentifier: "playerViewControllerStoryboard") as! PlayerViewController
             controller.podcast = self.podcast
             controller.episode = ep
+            
+            
             
             self.navigationController?.pushViewController(controller, animated: true)
             

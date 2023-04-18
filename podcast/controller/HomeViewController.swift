@@ -84,11 +84,13 @@ class HomeViewController: UIViewController {
         hometableview.dataSource = self
         hometableview.delegate = self
         
+        
         let downloadVc = self.tabBarController?.viewControllers?[1] as! DownloadsTableViewController
         downloadVc.dataController = self.dataController
         
         viewConfig()
         callAPI()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -102,10 +104,8 @@ class HomeViewController: UIViewController {
     }
     
     func viewConfig(){
-//        scrollview.contentSize = CGSizeMake(scrollViewContentWidth, scrollViewContentHeight)
         hometableview.bounces = false
         hometableview.isScrollEnabled = false
-        
     }
     
     func saveData(url:String) -> Data?{
@@ -130,10 +130,10 @@ class HomeViewController: UIViewController {
                     podcast.image           = item.image
                     podcast.language        = item.language
                     podcast.publisher       = item.publisher
-                    podcast.totalEpisodes   = Int32(item.totalEpisodes)
+                    podcast.totalEpisodes   = Int32(item.totalEpisodes!)
 
 
-                    let imageData = saveData(url: item.image)
+                    let imageData = saveData(url: item.image!)
                     podcast.imageData = imageData
 
                     self.pod.append(podcast)
@@ -148,22 +148,20 @@ class HomeViewController: UIViewController {
             DispatchQueue.main.async {
                 self.hometableview.reloadData()
             }
+            
         }
     }
     
     func callPodcastEpisodes(_ pod:PodCasts){
-        //epsodesTableView
         DispatchQueue.main.async {
+            
             let controller = self.storyboard?.instantiateViewController(withIdentifier: "epsodesTableView") as! EpisodesTableViewController
             
             controller.dataController = self.dataController
             controller.podcast = pod
             
-//            let navController = UINavigationController(rootViewController: controller)
-//            navController.modalPresentationStyle = .fullScreen
-            
-//            self.present(navController, animated: true, completion: nil)
             self.navigationController?.pushViewController(controller, animated: true)
+            
         }
     }
 }

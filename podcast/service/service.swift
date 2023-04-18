@@ -10,13 +10,12 @@ import PodcastAPI
 
 
 class PodCastService{
-//    let apikey = "82d39f47182148a9b5740c8571880154"//ProcessInfo.processInfo.environment["LISTEN_API_KEY", default: ""]
-    let apikey = ""//ProcessInfo.processInfo.environment["LISTEN_API_KEY", default: ""]
+
+    let apikey = ""
     let client:Client!
    
     
     init() {
-//        self.client = PodcastAPI.Client(apiKey: self.apikey, synchronousRequest: true)
         self.client = PodcastAPI.Client(apiKey: self.apikey, synchronousRequest: true)
     }
     
@@ -82,8 +81,8 @@ class PodCastService{
                         
                         let decocder = JSONDecoder()
                         let bestPodCastResponse = try decocder.decode(BestPodCastResponse.self, from: jsonData)
-                        
-                        completion(.success(bestPodCastResponse.podcasts))
+                                                
+                        completion(.success(bestPodCastResponse.podcasts!))
                         
                     }catch{
                         print("ERROR: \(error.localizedDescription)")
