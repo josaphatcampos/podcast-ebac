@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import NVActivityIndicatorView
 
 protocol FavoriteDelegate{
     func favoritarPodCast(_ id:String)
@@ -20,6 +21,14 @@ class HomeViewController: UIViewController {
     
     var service:PodCastService = PodCastService()
     var pod = [PodCasts]()
+    
+    let loader:NVActivityIndicatorView = {
+        let indicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 60, height: 60), type: .ballClipRotateMultiple, color: .yellow, padding: 150)
+        indicator.backgroundColor = .black.withAlphaComponent(0.4)
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        
+        return indicator
+    }()
     
     @IBOutlet weak var scrollview: UIScrollView!
     
@@ -81,6 +90,10 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        configload(view)
+        
+        loader.startAnimating()
+        
         hometableview.dataSource = self
         hometableview.delegate = self
         
@@ -101,6 +114,9 @@ class HomeViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         fetchedResultController = nil
+        if self.loader.isAnimating {
+            self.loader.stopAnimating()
+        }
     }
     
     func viewConfig(){
@@ -143,16 +159,24 @@ class HomeViewController: UIViewController {
 
             case .failure(let error):
                 print("error \(error.localizedDescription)")
+                if self.loader.isAnimating{
+                    self.loader.stopAnimating()
+                }
+                dispatchAlert(nil, message: "Não foi possível carregar os dados.")
             }
             
             DispatchQueue.main.async {
                 self.hometableview.reloadData()
+                if self.loader.isAnimating{
+                    self.loader.stopAnimating()
+                }
             }
             
         }
     }
     
     func callPodcastEpisodes(_ pod:PodCasts){
+        loader.startAnimating()
         DispatchQueue.main.async {
             
             let controller = self.storyboard?.instantiateViewController(withIdentifier: "epsodesTableView") as! EpisodesTableViewController
@@ -163,6 +187,19 @@ class HomeViewController: UIViewController {
             self.navigationController?.pushViewController(controller, animated: true)
             
         }
+    }
+    
+    func configload(_ view: UIView){
+        view.addSubview(loader)
+        
+        NSLayoutConstraint.activate([
+            loader.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
+            loader.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
+            loader.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0),
+            loader.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0),
+        ])
+        
+        loader.bringSubviewToFront(view)
     }
 }
 

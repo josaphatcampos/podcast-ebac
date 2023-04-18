@@ -41,9 +41,20 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configload(view)
+        loader.startAnimating()
         if Auth.auth().currentUser != nil {
-            loader.startAnimating()
             completelogin()
+        }else{
+            if loader.isAnimating {
+                loader.stopAnimating()
+            }
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if self.loader.isAnimating {
+            self.loader.stopAnimating()
         }
     }
     
@@ -72,10 +83,6 @@ class ViewController: UIViewController {
             homeViewController.dataController = self.dataController
             
             self.present(controller, animated: true, completion: nil)
-            
-            if self.loader.isAnimating{
-                self.loader.stopAnimating()
-            }
         }
     }
     

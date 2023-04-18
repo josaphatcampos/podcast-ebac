@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import NVActivityIndicatorView
 
 protocol DownloadEpisodeFileDelegate{
     func downloadEpisode(_ indexPath:IndexPath)
@@ -22,10 +23,22 @@ class EpisodesTableViewController: UITableViewController {
     var podcast:PodCasts!
     var ep = [Episodes]()
     
+    let loader:NVActivityIndicatorView = {
+        let indicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 60, height: 60), type: .ballClipRotateMultiple, color: .yellow, padding: 150)
+        indicator.backgroundColor = .black.withAlphaComponent(0.4)
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        
+        return indicator
+    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
+        configload(view)
+        
+        loader.startAnimating()
+        
         guard let id = podcast.id else{
             self.dismiss(animated: true)
             return
@@ -272,10 +285,15 @@ extension EpisodesTableViewController{
                 
             case .failure(let error):
                 print("error \(error.localizedDescription)")
+                self.loader.stopAnimating()
+                dispatchAlert(nil, message: "Não foi possível carregar os episódios")
             }
             
             DispatchQueue.main.async { //[weak self] in
                 self.tableView.reloadData()
+                if self.loader.isAnimating{
+                    self.loader.stopAnimating()
+                }
             }
 
         }
@@ -292,6 +310,19 @@ extension EpisodesTableViewController{
     func uiConfiguration(){
         self.modalPresentationStyle = .fullScreen
         self.navigationController?.navigationBar.backgroundColor = .init(red: 0, green: 0, blue: 0, alpha: 0)
+    }
+    
+    func configload(_ view: UIView){
+        view.addSubview(loader)
+        
+        NSLayoutConstraint.activate([
+            loader.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
+            loader.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
+            loader.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0),
+            loader.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0),
+        ])
+        
+        loader.bringSubviewToFront(view)
     }
 }
 
@@ -335,6 +366,8 @@ extension EpisodesTableViewController: NSFetchedResultsControllerDelegate{
 // MARK: - Download Audio
 extension EpisodesTableViewController: DownloadEpisodeFileDelegate{
     func downloadEpisode(_ indexPath: IndexPath) {
+        loader.startAnimating()
+        
         guard let epdownload = fetchedResultController?.fetchedObjects?[indexPath.row] else {return}
         let context = dataController.viewContext
         
@@ -345,6 +378,15 @@ extension EpisodesTableViewController: DownloadEpisodeFileDelegate{
         
         
         try? context.save()
+        
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            if self.loader.isAnimating{
+                self.loader.stopAnimating()
+            }
+        }
+        
+        
     }
     
     func deleteDownloadEpisode(_ indexPath: IndexPath) {

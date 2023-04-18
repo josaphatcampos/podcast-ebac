@@ -8,6 +8,7 @@
 import UIKit
 import CoreData
 import FirebaseCore
+import AVFoundation
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,6 +19,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         FirebaseApp.configure()
+        
+        let audioSession = AVAudioSession.sharedInstance()
+        do{
+            try audioSession.setCategory(.playback, mode: .moviePlayback)
+        }catch{
+            print("Player setting category failed.")
+        }
         
         return true
     }

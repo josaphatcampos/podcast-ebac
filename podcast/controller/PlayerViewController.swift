@@ -9,6 +9,8 @@ import UIKit
 import AVFoundation
 import AVKit
 
+import NVActivityIndicatorView
+
 class PlayerViewController: UIViewController {
     
     var episode:Episodes!
@@ -18,6 +20,15 @@ class PlayerViewController: UIViewController {
     
     var playerItem: AVPlayerItem!
     var avplayer:AVPlayer!
+    
+    let loader:NVActivityIndicatorView = {
+        let indicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 60, height: 60), type: .ballClipRotateMultiple, color: .yellow, padding: 150)
+        indicator.backgroundColor = .black.withAlphaComponent(0.4)
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        
+        return indicator
+    }()
+    
         
     @IBOutlet weak var coverimage: UIImageView!
     
@@ -64,6 +75,10 @@ class PlayerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        configload(view)
+        
+        loader.startAnimating()
+        
         configlayout()
         playaudio()
     }
@@ -98,7 +113,7 @@ class PlayerViewController: UIViewController {
     }
         
     func playaudio(){
-               
+        
         guard let sound = episode.audio else{
             self.dismiss(animated: true)
             return
@@ -127,12 +142,25 @@ class PlayerViewController: UIViewController {
         avplayer.volume = 1.0
         avplayer.play()
         playButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
-                
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback)
+        } catch(let error) {
+            print(error.localizedDescription)
+        }
+                                
         avplayer.addPeriodicTimeObserver(forInterval: CMTimeMake(value: 1, timescale: 1), queue: nil) { (time) in
             let percent = time.seconds / self.playerItem.duration.seconds
             self.tempSlider.setValue(Float(percent), animated: true)
             
             if time.isValid {
+//                if !self.loader.isHidden{
+//                    self.loader.isHidden = true
+//                }
+                if self.loader.isAnimating{
+                    self.loader.stopAnimating()
+                }
+                
                 self.totalTimeText.text = self.formatTime(duration: self.playerItem.duration)
                 self.currentTimeText.text = self.formatTime(duration: time)
             }
@@ -170,4 +198,21 @@ class PlayerViewController: UIViewController {
     }
     */
 
+}
+
+extension PlayerViewController{
+    
+    
+    func configload(_ view: UIView){
+        view.addSubview(loader)
+        
+        NSLayoutConstraint.activate([
+            loader.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
+            loader.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
+            loader.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0),
+            loader.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0),
+        ])
+        
+        loader.bringSubviewToFront(view)
+    }
 }
