@@ -20,7 +20,7 @@ class EpisodesTableViewCell: UITableViewCell {
     @IBOutlet weak var playbtn: UIButton!
     
     @IBAction func playbtnAction(_ sender: Any) {
-        print("CLICOU \(existDownload) at: \(String(describing: index?.row))")
+//        print("CLICOU \(existDownload) at: \(String(describing: index?.row))")
         if existDownload{
             downloadDelegate?.deleteDownloadEpisode(index!)
         }else{
@@ -50,7 +50,9 @@ class EpisodesTableViewCell: UITableViewCell {
         
         self.index = indexPath
         
-        existDownload = episode.audioData != nil
+        
+        
+        existDownload = episode.audioData != nil || ((episode.audioData?.isEmpty) != nil)
         
         if existDownload {
             playbtn.imageView?.image = UIImage(systemName: "trash.fill")

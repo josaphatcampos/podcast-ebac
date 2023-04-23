@@ -36,7 +36,6 @@ class EpisodesTableViewController: UITableViewController {
         super.viewDidLoad()
         
         configload(view)
-        
         loader.startAnimating()
         
         guard let id = podcast.id else{
@@ -51,8 +50,6 @@ class EpisodesTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setUpFetchedResultController()
-        
-        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -270,7 +267,7 @@ extension EpisodesTableViewController{
                     episode.title           = item.title
                     episode.audio           = item.audio
                     episode.image           = item.image
-                    episode.podCastId       = podcast.id
+                    episode.podCastId       = self.podcast.id
                     
                     let imageData = self.saveData(url: item.image)
                     episode.imageData = imageData

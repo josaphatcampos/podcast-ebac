@@ -136,7 +136,7 @@ class HomeViewController: UIViewController {
             guard let self = self else{return}
             switch result{
             case .success(let response):
-                deleteData()
+                self.deleteData()
                 for item in response {
                     let podcast = PodCasts(context: self.dataController.viewContext)
 
@@ -149,7 +149,7 @@ class HomeViewController: UIViewController {
                     podcast.totalEpisodes   = Int32(item.totalEpisodes!)
 
 
-                    let imageData = saveData(url: item.image!)
+                    let imageData = self.saveData(url: item.image!)
                     podcast.imageData = imageData
 
                     self.pod.append(podcast)
@@ -162,7 +162,7 @@ class HomeViewController: UIViewController {
                 if self.loader.isAnimating{
                     self.loader.stopAnimating()
                 }
-                dispatchAlert(nil, message: "Não foi possível carregar os dados.")
+                self.dispatchAlert(nil, message: "Não foi possível carregar os dados.")
             }
             
             DispatchQueue.main.async {
@@ -235,7 +235,6 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("celula \(indexPath)")
         let podcast = fetchedResultController!.object(at: indexPath)
         callPodcastEpisodes(podcast)
     }    
