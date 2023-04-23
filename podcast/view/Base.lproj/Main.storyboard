@@ -336,7 +336,7 @@
                                             </constraints>
                                             <color key="tintColor" red="0.95294117649999999" green="0.76470588240000004" blue="0.32549019610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <state key="normal" title="Button"/>
-                                            <buttonConfiguration key="configuration" style="plain" image="square.and.arrow.down" catalog="system"/>
+                                            <buttonConfiguration key="configuration" style="plain" image="icloud.and.arrow.down" catalog="system"/>
                                             <connections>
                                                 <action selector="playbtnAction:" destination="HXD-or-zOG" eventType="touchUpInside" id="dou-lZ-7C0"/>
                                             </connections>
@@ -786,6 +786,7 @@
         <image name="forward.end.fill" catalog="system" width="128" height="101"/>
         <image name="house" catalog="system" width="128" height="104"/>
         <image name="house.fill" catalog="system" width="128" height="104"/>
+        <image name="icloud.and.arrow.down" catalog="system" width="128" height="111"/>
         <image name="imagePlaceholder" width="1000" height="1000"/>
         <image name="internabg" width="1170" height="2532"/>
         <image name="logo" width="377" height="493"/>
@@ -795,7 +796,6 @@
         <image name="play.fill" catalog="system" width="117" height="128"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="rectangle.portrait.and.arrow.forward" catalog="system" width="128" height="109"/>
-        <image name="square.and.arrow.down" catalog="system" width="121" height="128"/>
         <image name="square.and.arrow.down.fill" catalog="system" width="121" height="128"/>
         <image name="suit.heart" catalog="system" width="128" height="107"/>
         <image name="trash.fill" catalog="system" width="119" height="128"/>

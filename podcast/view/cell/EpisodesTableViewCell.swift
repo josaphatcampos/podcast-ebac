@@ -20,10 +20,10 @@ class EpisodesTableViewCell: UITableViewCell {
     @IBOutlet weak var playbtn: UIButton!
     
     @IBAction func playbtnAction(_ sender: Any) {
-//        print("CLICOU \(existDownload) at: \(String(describing: index?.row))")
         if existDownload{
             downloadDelegate?.deleteDownloadEpisode(index!)
         }else{
+            self.playbtn.setImage( UIImage(systemName: "icloud.and.arrow.down"), for: .normal)
             downloadDelegate?.downloadEpisode(index!)
         }
     }
@@ -50,15 +50,18 @@ class EpisodesTableViewCell: UITableViewCell {
         
         self.index = indexPath
         
-        existDownload = episode.audioData != nil
+        self.existDownload = episode.audioData != nil
         
-        if existDownload {
-            print("O episódio carregou: \(String(describing: episode.title))")
-            playbtn.imageView?.image = UIImage(systemName: "trash.fill")
+        if self.existDownload{
+//            self.playbtn.imageView?.image = UIImage(systemName: "trash.fill")
+            self.playbtn.setImage( UIImage(systemName: "trash.fill"), for: .normal)
+        }else{
+            self.playbtn.setImage( UIImage(systemName: "square.and.arrow.down"), for: .normal)
+//            self.playbtn.imageView?.image = UIImage(systemName: "square.and.arrow.down")
         }
         
-        title.text = episode.title
-        subtitle.text = "Publicado em: \(String(describing: dateformate.string(from: minhadata)))"
+        self.title.text = episode.title
+        self.subtitle.text = "Publicado em: \(String(describing: dateformate.string(from: minhadata)))"
     }
 
 }

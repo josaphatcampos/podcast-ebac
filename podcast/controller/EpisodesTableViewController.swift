@@ -21,7 +21,6 @@ class EpisodesTableViewController: UITableViewController {
     
     var service:PodCastService = PodCastService()
     var podcast:PodCasts!
-    var ep = [Episodes]()
     
     let loader:NVActivityIndicatorView = {
         let indicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 60, height: 60), type: .ballClipRotateMultiple, color: .yellow, padding: 150)
@@ -35,7 +34,7 @@ class EpisodesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configload(view)
+        configload()
         loader.startAnimating()
         
         guard let id = podcast.id else{
@@ -67,8 +66,12 @@ class EpisodesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "episodescell", for: indexPath) as! EpisodesTableViewCell
         
-        let episode = fetchedResultController!.object(at: indexPath)
         cell.downloadDelegate = self
+        
+        let episode = fetchedResultController!.object(at: indexPath)
+        
+        cell.existDownload = episode.audioData != nil
+        
         cell.prepare(episode, indexPath: indexPath)
 
         return cell
@@ -198,9 +201,6 @@ extension EpisodesTableViewController{
         }catch{
             print("No fetchedController")
         }
-//        DispatchQueue.main.async { [weak self] in
-//            self?.tableView.reloadData()
-//        }
         
     }
     
@@ -317,7 +317,7 @@ extension EpisodesTableViewController{
         self.navigationController?.navigationBar.backgroundColor = .init(red: 0, green: 0, blue: 0, alpha: 0)
     }
     
-    func configload(_ view: UIView){
+    func configload(){
 //        view.addSubview(loader)
         tableView.backgroundView = loader
         
@@ -334,14 +334,16 @@ extension EpisodesTableViewController{
 extension EpisodesTableViewController: NSFetchedResultsControllerDelegate{
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.reloadData()
+        if self.loader.isAnimating{
+            self.loader.stopAnimating()
+        }
     }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         switch type{
         case .insert:
             if newIndexPath != nil {
-//                tableView.insertRows(at: [newIndexPath!], with: .none)
-//                tableView.reloadData()
+                print("\(String(describing: newIndexPath))")
             }
             break
             
@@ -357,7 +359,7 @@ extension EpisodesTableViewController: NSFetchedResultsControllerDelegate{
             }
             break
         case .move:
-            
+            print("MOVE")
             break
             
         default:
@@ -370,22 +372,19 @@ extension EpisodesTableViewController: NSFetchedResultsControllerDelegate{
 extension EpisodesTableViewController: DownloadEpisodeFileDelegate{
     func downloadEpisode(_ indexPath: IndexPath) {
         loader.startAnimating()
-        DispatchQueue.main.async {
+        
+        DispatchQueue.global().async {
             guard let epdownload = self.fetchedResultController?.fetchedObjects?[indexPath.row] else {return}
             let context = self.dataController.viewContext
-            
+
             guard let audio = epdownload.audio else{return}
-            
+
             let audioData = self.saveData(url: audio)
             epdownload.setValue(audioData, forKey: "audioData")
 
-
             try? context.save()
             
-//            self.tableView.reloadData()
-            if self.loader.isAnimating{
-                self.loader.stopAnimating()
-            }
+           
         }
         
         
