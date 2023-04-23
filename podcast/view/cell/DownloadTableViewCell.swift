@@ -9,6 +9,8 @@ import UIKit
 
 class DownloadTableViewCell: UITableViewCell {
     
+    var deleteDelegate:DeleteEpisodeDelegate?
+    var indexPath:IndexPath!
     
     @IBOutlet weak var title: UILabel!
     
@@ -17,6 +19,7 @@ class DownloadTableViewCell: UITableViewCell {
     @IBOutlet weak var btn: UIButton!
     
     @IBAction func btnAction(_ sender: Any) {
+        deleteDelegate?.deleteEpisode(indexPath: indexPath)
     }
 
     override func awakeFromNib() {
@@ -42,7 +45,6 @@ class DownloadTableViewCell: UITableViewCell {
         }else{
             title.text = episode.title!
         }
-        
         
         subtitle.text = "Publicado em: \(String(describing: dateformate.string(from: minhadata)))"
     }

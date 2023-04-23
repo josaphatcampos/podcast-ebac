@@ -8,6 +8,10 @@
 import UIKit
 import CoreData
 
+protocol DeleteEpisodeDelegate{
+    func deleteEpisode(indexPath:IndexPath)
+}
+
 class DownloadsTableViewController: UITableViewController {
     
     var dataController: DataController!
@@ -49,7 +53,8 @@ class DownloadsTableViewController: UITableViewController {
         let episode = fetchedResultController!.object(at: indexPath)
       
         let podcast = loadPodCast(id: episode.podCastId!)
-        
+        cell.deleteDelegate = self
+        cell.indexPath = indexPath
         cell.prepare(episode, podcast: podcast)
         
 
@@ -159,7 +164,7 @@ extension DownloadsTableViewController{
 }
 extension DownloadsTableViewController: NSFetchedResultsControllerDelegate{
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tableView.beginUpdates()
+        tableView.reloadData()
     }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
@@ -175,10 +180,26 @@ extension DownloadsTableViewController: NSFetchedResultsControllerDelegate{
                 tableView.deleteRows(at: [indexPath], with: .none)
             }
             break
-        case .move, .update :
+        case .move, .update:
             break
         default:
             break
         }
     }
+}
+
+extension DownloadsTableViewController: DeleteEpisodeDelegate{
+    
+    func deleteEpisode(indexPath: IndexPath) {
+        
+        guard let epdownload = fetchedResultController?.fetchedObjects?[indexPath.row] else {return}
+        let context = dataController.viewContext
+        
+        epdownload.setValue(nil, forKey: "audioData")
+        
+        try? context.save()
+        
+    }
+    
+    
 }

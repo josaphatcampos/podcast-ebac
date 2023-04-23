@@ -3,4 +3,197 @@
    uuid = "0E289E1D-A560-4272-90F1-23CD715235A9"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C385C711-FFAE-4A46-A156-F258543B5EF8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "podcast/controller/DownloadsTableViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
+            landmarkName = "deleteData(id:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5FAF35CB-5555-4168-9B00-13D585F60D2D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "podcast/controller/DownloadsTableViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "127"
+            endingLineNumber = "127"
+            landmarkName = "deleteData(id:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "5FAF35CB-5555-4168-9B00-13D585F60D2D - e32336d5ef834702"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "podcast.DownloadsTableViewController.deleteData(id: Swift.String) -&gt; ()"
+                  moduleName = "podcast"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/josaphatcampospereira/Projetos/estudos/Curso%20Swift/projeto/Exercicios/podcast/podcast/controller/DownloadsTableViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "127"
+                  endingLineNumber = "127"
+                  offsetFromSymbolStart = "1159">
+               </Location>
+               <Location
+                  uuid = "5FAF35CB-5555-4168-9B00-13D585F60D2D - e32336d5ef834702"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "podcast.DownloadsTableViewController.deleteData(id: Swift.String) -&gt; ()"
+                  moduleName = "podcast"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/josaphatcampospereira/Projetos/estudos/Curso%20Swift/projeto/Exercicios/podcast/podcast/controller/DownloadsTableViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "127"
+                  endingLineNumber = "127"
+                  offsetFromSymbolStart = "1509">
+               </Location>
+               <Location
+                  uuid = "5FAF35CB-5555-4168-9B00-13D585F60D2D - e32336d5ef834702"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "podcast.DownloadsTableViewController.deleteData(id: Swift.String) -&gt; ()"
+                  moduleName = "podcast"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/josaphatcampospereira/Projetos/estudos/Curso%20Swift/projeto/Exercicios/podcast/podcast/controller/DownloadsTableViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "127"
+                  endingLineNumber = "127"
+                  offsetFromSymbolStart = "2099">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F29FA761-CCDF-4064-8205-0B9932090972"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "podcast/controller/DownloadsTableViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
+            landmarkName = "deleteData(id:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "F29FA761-CCDF-4064-8205-0B9932090972 - e32336d5ef834686"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "podcast.DownloadsTableViewController.deleteData(id: Swift.String) -&gt; ()"
+                  moduleName = "podcast"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/josaphatcampospereira/Projetos/estudos/Curso%20Swift/projeto/Exercicios/podcast/podcast/controller/DownloadsTableViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "131"
+                  endingLineNumber = "131"
+                  offsetFromSymbolStart = "1835">
+               </Location>
+               <Location
+                  uuid = "F29FA761-CCDF-4064-8205-0B9932090972 - dabfe9af1a07e651"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in podcast.DownloadsTableViewController.deleteData(id: Swift.String) -&gt; ()"
+                  moduleName = "podcast"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/josaphatcampospereira/Projetos/estudos/Curso%20Swift/projeto/Exercicios/podcast/podcast/controller/DownloadsTableViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "132"
+                  endingLineNumber = "132"
+                  offsetFromSymbolStart = "47">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A1E48BED-042B-4968-92F9-75F708E35DED"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "podcast/controller/DownloadsTableViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "137"
+            endingLineNumber = "137"
+            landmarkName = "deleteData(id:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A1E48BED-042B-4968-92F9-75F708E35DED - e32336d5ef83466f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "podcast.DownloadsTableViewController.deleteData(id: Swift.String) -&gt; ()"
+                  moduleName = "podcast"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/josaphatcampospereira/Projetos/estudos/Curso%20Swift/projeto/Exercicios/podcast/podcast/controller/DownloadsTableViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "138"
+                  endingLineNumber = "138"
+                  offsetFromSymbolStart = "2177">
+               </Location>
+               <Location
+                  uuid = "A1E48BED-042B-4968-92F9-75F708E35DED - 29e3461493eb800a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 @Swift.MainActor () -&gt; () in podcast.DownloadsTableViewController.deleteData(id: Swift.String) -&gt; ()"
+                  moduleName = "podcast"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/josaphatcampospereira/Projetos/estudos/Curso%20Swift/projeto/Exercicios/podcast/podcast/controller/DownloadsTableViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "139"
+                  endingLineNumber = "139"
+                  offsetFromSymbolStart = "36">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "11DA2033-0FD2-42E6-B2ED-59692BA21CAD"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "podcast/controller/DownloadsTableViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "140"
+            endingLineNumber = "140"
+            landmarkName = "deleteData(id:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

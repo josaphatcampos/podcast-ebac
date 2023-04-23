@@ -64,7 +64,6 @@ class EpisodesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         let count = fetchedResultController?.sections?[section].numberOfObjects ?? 0
-                print("COUNT \(count)")
         return count
     }
 
@@ -259,7 +258,7 @@ extension EpisodesTableViewController{
             case .success(let response):
                 let context = self.dataController.viewContext
                 
-                deleteData()
+                self.deleteData()
                 
                 for item in response.episodes {
                     let episode = Episodes(context: context)
@@ -273,7 +272,7 @@ extension EpisodesTableViewController{
                     episode.image           = item.image
                     episode.podCastId       = podcast.id
                     
-                    let imageData = saveData(url: item.image)
+                    let imageData = self.saveData(url: item.image)
                     episode.imageData = imageData
                     
                     self.ep.append(episode)
@@ -286,7 +285,7 @@ extension EpisodesTableViewController{
             case .failure(let error):
                 print("error \(error.localizedDescription)")
                 self.loader.stopAnimating()
-                dispatchAlert(nil, message: "Não foi possível carregar os episódios")
+                self.dispatchAlert(nil, message: "Não foi possível carregar os episódios")
             }
             
             DispatchQueue.main.async { //[weak self] in
@@ -328,7 +327,7 @@ extension EpisodesTableViewController{
 
 extension EpisodesTableViewController: NSFetchedResultsControllerDelegate{
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tableView.beginUpdates()
+        tableView.reloadData()
     }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
