@@ -50,11 +50,10 @@ class EpisodesTableViewCell: UITableViewCell {
         
         self.index = indexPath
         
-        
-        
-        existDownload = episode.audioData != nil || ((episode.audioData?.isEmpty) != nil)
+        existDownload = episode.audioData != nil
         
         if existDownload {
+            print("O episódio carregou: \(String(describing: episode.title))")
             playbtn.imageView?.image = UIImage(systemName: "trash.fill")
         }
         

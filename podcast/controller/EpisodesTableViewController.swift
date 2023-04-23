@@ -42,7 +42,7 @@ class EpisodesTableViewController: UITableViewController {
             self.dismiss(animated: true)
             return
         }
-        
+
         uiConfiguration()
         callAPI(id)
     }
@@ -173,8 +173,6 @@ class EpisodesTableViewController: UITableViewController {
             episodios.centerXAnchor.constraint(equalTo: header.centerXAnchor),
             episodios.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -51),
             
-            
-            
         ])
         
         return header
@@ -192,6 +190,7 @@ extension EpisodesTableViewController{
         fetchRequest.predicate = NSPredicate(format: "podCastId = %@", podcast.id!)
         
         fetchedResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        dataController.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         fetchedResultController?.delegate = self
         do{
             try fetchedResultController!.performFetch()
@@ -199,9 +198,9 @@ extension EpisodesTableViewController{
         }catch{
             print("No fetchedController")
         }
-        DispatchQueue.main.async { [weak self] in
-            self?.tableView.reloadData()
-        }
+//        DispatchQueue.main.async { [weak self] in
+//            self?.tableView.reloadData()
+//        }
         
     }
     
@@ -227,14 +226,44 @@ extension EpisodesTableViewController{
         }catch{
             print("Delete Error \(error as Any)")
         }
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
+//        DispatchQueue.main.async {
+//            self.tableView.reloadData()
+//        }
+    }
+    
+    func saveItem(item:Episode){
+        do{
+            let context = dataController.viewContext
+            let request:NSFetchRequest<Episodes> = Episodes.fetchRequest()
+            request.predicate = NSPredicate(format: "id = %@ and audioData != nil", item.id)
+            let numberOfRecords = try context.count(for: request)
+            if numberOfRecords == 0 {
+                let episode = Episodes(context: context)
+
+                episode.id              = item.id
+                episode.pubDatems       = item.pubDateMS
+                episode.descriptionNote = item.description
+                episode.explicitContent = item.explicitContent
+                episode.title           = item.title
+                episode.audio           = item.audio
+                episode.image           = item.image
+                episode.podCastId       = self.podcast.id
+                
+                let imageData = self.saveData(url: item.image)
+                episode.imageData = imageData
+                                        
+                context.perform {
+                    try? context.save()
+                }
+            }
+            
+        }catch{
+            print("Error \(error.localizedDescription)")
         }
     }
     
     func callPlayer(ep:Episodes){
         DispatchQueue.main.async {
-            
             
             let controller = self.storyboard?.instantiateViewController(withIdentifier: "playerViewControllerStoryboard") as! PlayerViewController
             controller.podcast = self.podcast
@@ -253,30 +282,10 @@ extension EpisodesTableViewController{
             guard let self = self else{return}
             switch result{
             case .success(let response):
-                let context = self.dataController.viewContext
-                
                 self.deleteData()
                 
                 for item in response.episodes {
-                    let episode = Episodes(context: context)
-
-                    episode.id              = item.id
-                    episode.pubDatems       = item.pubDateMS
-                    episode.descriptionNote = item.description
-                    episode.explicitContent = item.explicitContent
-                    episode.title           = item.title
-                    episode.audio           = item.audio
-                    episode.image           = item.image
-                    episode.podCastId       = self.podcast.id
-                    
-                    let imageData = self.saveData(url: item.image)
-                    episode.imageData = imageData
-                    
-                    self.ep.append(episode)
-                                            
-                    context.perform {
-                        try? context.save()
-                    }
+                    self.saveItem(item: item)
                 }
                 
             case .failure(let error):
@@ -309,7 +318,8 @@ extension EpisodesTableViewController{
     }
     
     func configload(_ view: UIView){
-        view.addSubview(loader)
+//        view.addSubview(loader)
+        tableView.backgroundView = loader
         
         NSLayoutConstraint.activate([
             loader.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
@@ -317,7 +327,6 @@ extension EpisodesTableViewController{
             loader.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0),
             loader.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0),
         ])
-        
         loader.bringSubviewToFront(view)
     }
 }
@@ -331,22 +340,20 @@ extension EpisodesTableViewController: NSFetchedResultsControllerDelegate{
         switch type{
         case .insert:
             if newIndexPath != nil {
-                tableView.insertRows(at: [newIndexPath!], with: .none)
-                print("insert")
-                tableView.reloadData()
+//                tableView.insertRows(at: [newIndexPath!], with: .none)
+//                tableView.reloadData()
             }
             break
             
         case .delete:
             if let indexPath = indexPath {
                 print("delete")
-                tableView.reloadRows(at: [indexPath], with: .none)
+//                tableView.deleteRows(at: [indexPath], with: .none)
             }
             break
         case .update :
             if let indexPath = indexPath {
-                print("update")
-                tableView.reloadRows(at: [indexPath], with: .none)
+                print("update \(indexPath)")
             }
             break
         case .move:
@@ -363,20 +370,19 @@ extension EpisodesTableViewController: NSFetchedResultsControllerDelegate{
 extension EpisodesTableViewController: DownloadEpisodeFileDelegate{
     func downloadEpisode(_ indexPath: IndexPath) {
         loader.startAnimating()
-        
-        guard let epdownload = fetchedResultController?.fetchedObjects?[indexPath.row] else {return}
-        let context = dataController.viewContext
-        
-        guard let audio = epdownload.audio else{return}
-        
-        let audioData = saveData(url: audio)
-        epdownload.setValue(audioData, forKey: "audioData")
-        
-        
-        try? context.save()
-        
         DispatchQueue.main.async {
-            self.tableView.reloadData()
+            guard let epdownload = self.fetchedResultController?.fetchedObjects?[indexPath.row] else {return}
+            let context = self.dataController.viewContext
+            
+            guard let audio = epdownload.audio else{return}
+            
+            let audioData = self.saveData(url: audio)
+            epdownload.setValue(audioData, forKey: "audioData")
+
+
+            try? context.save()
+            
+//            self.tableView.reloadData()
             if self.loader.isAnimating{
                 self.loader.stopAnimating()
             }

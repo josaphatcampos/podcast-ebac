@@ -225,8 +225,6 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate{
         
         cell.favoriteDelegate = self
         
-        
-        
         cell.id = podcast.id!
         
         cell.prepare(with: podcast)
